@@ -19,14 +19,26 @@ jobs:
       uses: leafo/gh-actions-luarocks@v6
     - name: Run Lua test
       run: lua -v
+    - name: Installing Lunatic Test Framework
+      run: |
+        luarocks install lunatic
     - name: Run a regression
       env:
         # env vars to use at step
         LUNATIC: "yes"
       run: |
-        #xvfb-run firefox -headless &
+        echo "Starting virtual display"
         Xvfb :99 -screen 0 1280x1024x24 &
         export DISPLAY=:99
-        luarocks install lunatic
+
+        echo "Running the regression tests"
         cd regression
         lua web_regression.lua
+
+        echo "Cehecking the results"
+        REGRESSION-RESULT=$(cat output.txt | grep 'Faulures:' | wc -l)
+
+        if [[ "$REGRESSION-RESULT" -eq "1" ]]; then
+          echo "Regression has failing tests. Check output.txt"
+          exit 1
+        fi
