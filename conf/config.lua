@@ -4,7 +4,7 @@
  --All paths are relative to the conf folder of the project
 local config = {
     browser_webdriver_path = "../drivers",
-    browser_webdriver_executable = "geckodriver",
+    browser_webdriver_executable = "geckodriver --connect-existing",
     test_cases_path = "../examples",
 }
 
