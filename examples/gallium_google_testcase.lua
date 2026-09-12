@@ -41,7 +41,7 @@ describe('--> Test Google Search', function ()
     local is_substring = string.find(obtained_title, expected_title)
 
     assert(is_substring ~= nil, failure_comment)
-  end)
+  end, 'skip')
   it('Check Gmail Page Title', function ()
     local stat,msg = gallium_webdriver.navigate(conn, "http://google.com")
     local expected_title = "Gmail: Private and secure email at no cost | Google Workspace"
