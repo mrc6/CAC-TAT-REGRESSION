@@ -1,6 +1,6 @@
 package.path = package.path .. ";../conf/?.lua"
 package.path = package.path .. ";../lib/?.lua"
-package.path = package.path .. ";../.luarocks/?.lua"
+package.path = package.path .. ";../.luarocks/?"
 local config = require('config')
 local os = require('os')
 
