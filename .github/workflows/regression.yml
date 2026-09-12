@@ -23,8 +23,6 @@ jobs:
         # env vars to use at step
         LUNATIC: "yes"
       run: |
-        pwd
-        ls
-        #cd regression
-        #lua web_regression.lua
+        cd regression
+        lua web_regression.lua
     
