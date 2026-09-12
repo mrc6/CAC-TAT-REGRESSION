@@ -35,7 +35,10 @@ jobs:
         cd regression
         lua web_regression.lua
 
-        echo "Cehecking the results"
+        echo "Stopping virtual display"
+        pkill -f Xvfb
+
+        echo "Checking the results"
         REGRESSION_RESULT=$(cat output.txt | grep 'Failures:' | wc -l)
 
         if [[ "$REGRESSION_RESULT" -eq "1" ]]; then
