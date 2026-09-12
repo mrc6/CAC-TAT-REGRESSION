@@ -11,15 +11,12 @@ jobs:
     steps:
     - name: Check out code
       uses: actions/checkout@v4
-    - name: Install Node.js
-      uses: actions/setup-node@v4
-    - name: Install Dependencies
-      run: npm install
-    - uses: actions/checkout@v4
-    - uses: leafo/gh-actions-lua@v13
+    - name: Getting Lua
+      uses: leafo/gh-actions-lua@v13
       with:
         luaVersion: "5.2.0"
-    - uses: leafo/gh-actions-luarocks@v6
+    - name: Getting Luarocks
+      uses: leafo/gh-actions-luarocks@v6
     - name: Run Lua test
       run: lua -v
     - name: Run a regression
