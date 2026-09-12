@@ -36,9 +36,9 @@ jobs:
         lua web_regression.lua
 
         echo "Cehecking the results"
-        REGRESSION-RESULT=$(cat output.txt | grep 'Faulures:' | wc -l)
+        REGRESSION_RESULT=$(cat output.txt | grep 'Failures:' | wc -l)
 
-        if [[ "$REGRESSION-RESULT" -eq "1" ]]; then
+        if [[ "$REGRESSION_RESULT" -eq "1" ]]; then
           echo "Regression has failing tests. Check output.txt"
           exit 1
         fi
