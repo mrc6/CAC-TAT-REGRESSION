@@ -24,7 +24,9 @@ jobs:
         # env vars to use at step
         LUNATIC: "yes"
       run: |
-        xvfb-run firefox -headless &
+        #xvfb-run firefox -headless &
+        Xvfb :99 -screen 0 1280x1024x24 &
+        export DISPLAY=:99
         luarocks install lunatic
         cd regression
         lua web_regression.lua
