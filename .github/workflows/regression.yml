@@ -9,6 +9,12 @@ jobs:
   lunatic-web-test:
     runs-on: ubuntu-latest
     steps:
+    - name: Check out code
+      uses: actions/checkout@v4
+    - name: Install Node.js
+      uses: actions/setup-node@v4
+    - name: Install Dependencies
+      run: npm install
     - uses: actions/checkout@v4
     - uses: leafo/gh-actions-lua@v13
       with:
@@ -22,7 +28,6 @@ jobs:
         LUNATIC: "yes"
       run: |
         luarocks install lunatic
-        firefox -headless
+        xvfb-run firefox -headless
         cd regression
         lua web_regression.lua
-    
