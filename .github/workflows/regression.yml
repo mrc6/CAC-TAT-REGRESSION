@@ -6,14 +6,14 @@ on:
     # This runs every sunday at 00:00 (Midnight) UTC
     - cron: '0 0 * * 0'
 jobs:
-  cobol-check:
+  lunatic-web-test:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
-    - uses: leafo/gh-actions-lua@v5
+    - uses: leafo/gh-actions-lua@v13
       with:
-        luaVersion: "5.2"
-    - uses: leafo/gh-actions-luarocks@v2
+        luaVersion: "5.2.0"
+    - uses: leafo/gh-actions-luarocks@v6
     - name: Run Lua test
       run: lua -v
     - name: Install Lunatic
