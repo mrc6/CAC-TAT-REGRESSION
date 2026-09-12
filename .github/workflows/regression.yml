@@ -24,7 +24,7 @@ jobs:
         # env vars to use at step
         LUNATIC: "yes"
       run: |
-        luarocks install lunatic
         xvfb-run firefox -headless &
+        luarocks install lunatic
         cd regression
         lua web_regression.lua
