@@ -21,6 +21,7 @@ jobs:
     - name: Run a regression
       env:
         # env vars to use at step
+        LUNATIC: "yes"
       run: |
         pwd
         ls
