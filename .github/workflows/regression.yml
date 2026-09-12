@@ -16,13 +16,12 @@ jobs:
     - uses: leafo/gh-actions-luarocks@v6
     - name: Run Lua test
       run: lua -v
-    - name: Install Lunatic
-      run: luarocks install lunatic
     - name: Run a regression
       env:
         # env vars to use at step
         LUNATIC: "yes"
       run: |
+        luarocks install lunatic
         cd regression
         lua web_regression.lua
     
