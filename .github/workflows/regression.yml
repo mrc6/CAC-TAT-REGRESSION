@@ -25,6 +25,6 @@ jobs:
         LUNATIC: "yes"
       run: |
         luarocks install lunatic
-        xvfb-run firefox -headless
+        xvfb-run firefox -headless &
         cd regression
         lua web_regression.lua
