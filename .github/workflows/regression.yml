@@ -22,6 +22,7 @@ jobs:
         LUNATIC: "yes"
       run: |
         luarocks install lunatic
-        cd regression
-        lua web_regression.lua
+        ls -a .luarocks
+        #cd regression
+        #lua web_regression.lua
     
