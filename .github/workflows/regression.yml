@@ -1,0 +1,29 @@
+name: CAC-TAT regression with Lunatic test framework
+on:
+  push:
+    branches: [ main
+  schedule:
+    # This runs every sunday at 00:00 (Midnight) UTC
+    - cron: '0 0 * * 0'
+jobs:
+  cobol-check:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - uses: leafo/gh-actions-lua@v5
+      with:
+        luaVersion: "5.2"
+    - uses: leafo/gh-actions-luarocks@v2
+    - name: Run Lua test
+      run: lua -v
+    - name: Install Lunatic
+      run: luarocks install lunatic
+    - name: Run a regression
+      env:
+        # env vars to use at step
+      run: |
+        pwd
+        ls
+        #cd regression
+        #lua web_regression.lua
+    
