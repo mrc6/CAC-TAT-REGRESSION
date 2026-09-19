@@ -256,6 +256,69 @@ describe('--> Test local CAC TAT page', function ()
     local expected_selected_value = true
     local failure_comment = "Expected Youtube option to be selected "..tostring(expected_selected_value)..", but is "..tostring(received_selected_value)
     assert(received_selected_value == expected_selected_value, failure_comment)
+
+    local expected_element_text = "YouTube"
+    local element_text = gallium_webdriver.get_element_text(conn, element_id)
+    local failure_comment = "Expected element text was "..expected_element_text..", but is "..element_text
+    assert(element_text == expected_element_text, failure_comment)
+  end)
+  it('Select Mentoria product by value', function()
+    local local_url = pwd.abs_path(config.test_cases_path .. "/src/index.html")
+    local stat,msg = gallium_webdriver.navigate(conn, "file://" .. local_url)
+    
+    -- Selecting Mentoria product by text
+    element_id = gallium_webdriver.find_element_by_id(conn, "product")
+    gallium_webdriver.element_click(conn, element_id)
+
+    element_id = gallium_webdriver.find_element_by_xpath(conn, "//option[@value='mentoria']")
+    gallium_webdriver.element_click(conn, element_id)
+
+    -- Checking if the Mentoria option is selected
+    local received_selected_value = gallium_webdriver.get_element_property(conn, element_id, "selected")
+    local expected_selected_value = true
+    local failure_comment = "Expected Mentoria option to be selected "..tostring(expected_selected_value)..", but is "..tostring(received_selected_value)
+    assert(received_selected_value == expected_selected_value, failure_comment)
+
+    local expected_element_text = "Mentoria"
+    local element_text = gallium_webdriver.get_element_text(conn, element_id)
+    local failure_comment = "Expected element text was "..expected_element_text..", but is "..element_text
+    assert(element_text == expected_element_text, failure_comment)
+  end)
+  it('Select Blog product by index', function()
+    local local_url = pwd.abs_path(config.test_cases_path .. "/src/index.html")
+    local stat,msg = gallium_webdriver.navigate(conn, "file://" .. local_url)
+    
+    -- Selecting Mentoria product by text
+    element_id = gallium_webdriver.find_element_by_id(conn, "product")
+    gallium_webdriver.element_click(conn, element_id)
+
+    element_id = gallium_webdriver.find_element_by_xpath(conn, "//option[2]")
+    gallium_webdriver.element_click(conn, element_id)
+
+    -- Checking if the Blog option is selected
+    local received_selected_value = gallium_webdriver.get_element_property(conn, element_id, "selected")
+    local expected_selected_value = true
+    local failure_comment = "Expected Blog option to be selected "..tostring(expected_selected_value)..", but is "..tostring(received_selected_value)
+    assert(received_selected_value == expected_selected_value, failure_comment)
+
+    local expected_element_text = "Blog"
+    local element_text = gallium_webdriver.get_element_text(conn, element_id)
+    local failure_comment = "Expected element text was "..expected_element_text..", but is "..element_text
+    assert(element_text == expected_element_text, failure_comment)
+  end)
+  it('Check all service types', function()
+    local local_url = pwd.abs_path(config.test_cases_path .. "/src/index.html")
+    local stat,msg = gallium_webdriver.navigate(conn, "file://" .. local_url)
+    
+    -- Selecting Services
+    elements_id = gallium_webdriver.find_elements_by_xpath(conn, "//*[@type='radio']")
+    for i, element_id in ipairs(elements_id) do
+      gallium_webdriver.element_click(conn, element_id)
+      local received_selected_value = gallium_webdriver.get_element_property(conn, element_id, "checked")
+      local expected_selected_value = true
+      local failure_comment = "Expected radio button "..i.." to be selected "..tostring(expected_selected_value)..", but is "..tostring(received_selected_value)
+      assert(received_selected_value == expected_selected_value, failure_comment)
+    end
   end)
 end)
 
