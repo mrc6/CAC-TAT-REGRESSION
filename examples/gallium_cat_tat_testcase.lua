@@ -320,6 +320,67 @@ describe('--> Test local CAC TAT page', function ()
       assert(received_selected_value == expected_selected_value, failure_comment)
     end
   end)
+  it('Check all checkboxes and unselect the last one', function()
+    local local_url = pwd.abs_path(config.test_cases_path .. "/src/index.html")
+    local stat,msg = gallium_webdriver.navigate(conn, "file://" .. local_url)
+    
+    -- Checking the E-mail checkbox to make it required
+    element_id = gallium_webdriver.find_element_by_id(conn, "email-checkbox")
+    gallium_webdriver.element_click(conn, element_id)
+    
+    -- Checking if the E-mail checkbox is checked
+    local received_selected_value = gallium_webdriver.get_element_property(conn, element_id, "checked")
+    local expected_selected_value = true
+    local failure_comment = "Expected E-mail checkbox to be checked "..tostring(expected_selected_value)..", but is "..tostring(received_selected_value)
+    assert(received_selected_value == expected_selected_value, failure_comment)
+    
+    -- Checking the phone checkbox to make it required
+    element_id = gallium_webdriver.find_element_by_id(conn, "phone-checkbox")
+    gallium_webdriver.element_click(conn, element_id)
+
+    -- Checking if the Phone checkbox is checked
+    received_selected_value = gallium_webdriver.get_element_property(conn, element_id, "checked")
+    expected_selected_value = true
+    failure_comment = "Expected Phone checkbox to be checked "..tostring(expected_selected_value)..", but is "..tostring(received_selected_value)
+    assert(received_selected_value == expected_selected_value, failure_comment)
+  
+    -- Unchecking the phone checkbox to make it required
+    element_id = gallium_webdriver.find_element_by_id(conn, "phone-checkbox")
+    gallium_webdriver.element_click(conn, element_id)
+
+    -- Checking if the Phone checkbox is unchecked
+    received_selected_value = gallium_webdriver.get_element_property(conn, element_id, "checked")
+    expected_selected_value = false
+    failure_comment = "Expected Phone checkbox to be checked "..tostring(expected_selected_value)..", but is "..tostring(received_selected_value)
+    assert(received_selected_value == expected_selected_value, failure_comment)
+  end)
+  it('Select a file from fixtures folder', function()
+    local local_url = pwd.abs_path(config.test_cases_path .. "/src/index.html")
+    local stat,msg = gallium_webdriver.navigate(conn, "file://" .. local_url)
+    local file_path = pwd.abs_path(config.test_cases_path .. "/fixtures/example.json")
+    local expected_file_name = "example.json" --C:\fakepath\example.json
+
+    -- Selecting the input file element and sending the file path to it
+    element_id = gallium_webdriver.find_element_by_id(conn, "file-upload")
+    gallium_webdriver.send_keys(conn, element_id, file_path)
+
+    -- Checking if the file was selected
+    local received_selected_value = gallium_webdriver.get_element_property(conn, element_id, "value")
+    local expected_selected_value = expected_file_name
+    local failure_comment = "Expected file path to be "..tostring(expected_selected_value)..", but is "..tostring(received_selected_value)
+    assert(string.find(received_selected_value, expected_selected_value) ~= nil, failure_comment)
+  end)
+  it('Verify if Privacy Policy opens in a new tab without the need of a click', function()
+    local local_url = pwd.abs_path(config.test_cases_path .. "/src/index.html")
+    local stat,msg = gallium_webdriver.navigate(conn, "file://" .. local_url)
+
+    -- Checking if the Privacy Policy link has target="_blank" attribute
+    local element_id = gallium_webdriver.find_element_by_xpath(conn, "//a[@href='privacy.html']")
+    local received_target_value = gallium_webdriver.get_element_property(conn, element_id, "target")
+    local expected_target_value = "_blank"
+    local failure_comment = "Expected target attribute to be "..tostring(expected_target_value)..", but is "..tostring(received_target_value)
+    assert(received_target_value == expected_target_value, failure_comment)
+  end)
 end)
 
 local tear_down = {
