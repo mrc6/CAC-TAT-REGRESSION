@@ -14,7 +14,7 @@ jobs:
     - name: Getting Lua
       uses: leafo/gh-actions-lua@v13
       with:
-        luaVersion: "5.2.0"
+        luaVersion: "5.1.0"
     - name: Getting Luarocks
       uses: leafo/gh-actions-luarocks@v6
     - name: Run Lua test
