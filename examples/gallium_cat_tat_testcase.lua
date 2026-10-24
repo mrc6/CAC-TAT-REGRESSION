@@ -1,6 +1,7 @@
 --loading the framework
 local describe = require('lunatic')
 local gallium_webdriver = require('gallium_webdriver')
+local rest_api = require('rest_api')
 
 -- Getting the config file
 local config = require('config')
@@ -380,6 +381,19 @@ describe('--> Test local CAC TAT page', function ()
     local expected_target_value = "_blank"
     local failure_comment = "Expected target attribute to be "..tostring(expected_target_value)..", but is "..tostring(received_target_value)
     assert(received_target_value == expected_target_value, failure_comment)
+  end)
+  it('Make a http request', function()
+    local local_url = 'https://httpbin.org/get'
+    local msg = rest_api.get(local_url)
+    local expected_value = "httpbin.org"
+
+    if msg == nil then
+      print("Error: response is nil")
+    else
+      local received_value = msg.headers.Host
+      local failure_comment = "Expected response header Host to be "..tostring(expected_value)..", but is "..tostring(received_value)
+      assert(received_value == expected_value, failure_comment)
+    end
   end)
 end)
 
