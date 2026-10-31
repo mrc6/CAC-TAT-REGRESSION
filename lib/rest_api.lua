@@ -27,7 +27,6 @@ local request = {
 	-- Decode the response body from JSON to a Lua table
 	  return json.decode(table.concat(response_body))
   end,
-
   get = function(endpoint,method)
 	local response_body = {}
 	-- Send a POST request to start a new session
@@ -44,6 +43,50 @@ local request = {
 
 	-- Decode the response body from JSON to a Lua table
 	return json.decode(table.concat(response_body))	
+  end,
+  delete = function(endpoint,jsonBody)
+	local response_body = {}
+	-- Send a DELETE request to start a new session
+	local _, status_code, headers, status_line = http.request {
+		url = endpoint,
+		method = "DELETE",
+		headers = {
+			["Content-Type"] = "application/json",
+			["Content-Length"] = #jsonBody
+		},
+		source = ltn12.source.string(jsonBody),
+		sink = ltn12.sink.table(response_body)
+	}
+	--print(status_code,headers,status_line)
+	-- Check the status code for errors
+	if status_code ~= 204 and status_code ~= 200 then
+	  return nil,"Request failed: " .. (status_line or "").." Code: "..(status_code or "")
+	end
+
+	-- Decode the response body from JSON to a Lua table
+	  return json.decode(table.concat(response_body))
+  end,
+  put = function(endpoint,jsonBody)
+	local response_body = {}
+	-- Send a PUT request to start a new session
+	local _, status_code, headers, status_line = http.request {
+		url = endpoint,
+		method = "PUT",
+		headers = {
+			["Content-Type"] = "application/json",
+			["Content-Length"] = #jsonBody
+		},
+		source = ltn12.source.string(jsonBody),
+		sink = ltn12.sink.table(response_body)
+	}
+	--print(status_code,headers,status_line)
+	-- Check the status code for errors
+	if status_code ~= 201 and status_code ~= 200 then
+	  return nil,"Request failed: " .. (status_line or "").." Code: "..(status_code or "")
+	end
+
+	-- Decode the response body from JSON to a Lua table
+	  return json.decode(table.concat(response_body))
   end
 }
 
