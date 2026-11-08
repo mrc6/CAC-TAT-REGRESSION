@@ -110,7 +110,7 @@ meta = {
 			{name = "findElement",method="POST",endpoint = [[/session/{session id}/element]]},
 			{name = "findElements",method="POST",endpoint = [[/session/{session id}/elements]]},
 			{name = "findElementFromElement",method="POST",endpoint = [[/session/{session id}/element/{elementId}/element]]},
-			{name = "findElementsFromElement",method="POST",endpoint = [[/session/{session id}/element/{elementId}/element]]},
+			{name = "findElementsFromElement",method="POST",endpoint = [[/session/{session id}/element/{elementId}/elements]]},
 			{name = "findElementFromShadowRoot",method="POST",endpoint = [[/session/{session id}/shadow/{shadowId}/element]]},
 			{name = "findElementsFromShadowRoot",method="POST",endpoint = [[/session/{session id}/shadow/{shadowId}/elements]]},
 			{name = "isElementDisplayed",method="GET",endpoint = [[/session/{session id}/element/{elementId}/displayed]]},
@@ -142,7 +142,7 @@ meta = {
 			{name = "getAlertText",method="GET",endpoint = [[/session/{session id}/alert/text]]},
 			{name = "sendAlertText",method="POST",endpoint = [[/session/{session id}/alert/text]]},
 			{name = "takeScreenshot",method="GET",endpoint = [[/session/{session id}/screenshot]]},
-			{name = "takeElementScreenshot",method="GET",endpoint = [[/session/{session id}]]},
+			{name = "takeElementScreenshot",method="GET",endpoint = [[/session/{session id}/element/{elementId}/screenshot]]},
 			{name = "printPage",method="POST",endpoint = [[/session/{session id}/print]]},
 		}
 		local ep = tu.inArray(endPoints,k,function(v1,v2)
